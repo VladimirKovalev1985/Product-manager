@@ -1,5 +1,8 @@
-package ru.netology.domain;
+package ru.netology.manager;
 
+import ru.netology.domain.Book;
+import ru.netology.domain.Product;
+import ru.netology.domain.Smartphone;
 import ru.netology.repository.Repository;
 
 public class ProductManager {
@@ -17,17 +20,6 @@ public class ProductManager {
         repository.save(product);
     }
 
-    public Product[] getAll() {
-        Product[] products = repository.findAll();
-        Product[] result = new Product[products.length];
-        for (int i = 0; i < result.length; i++) {
-            int index = products.length - i - 1;
-            result[i] = products[index];
-        }
-
-        return result;
-
-    }
 
     public Product[] searchBy(String text) {
         Product[] result = new Product[0];
@@ -55,20 +47,20 @@ public class ProductManager {
             return false;
         }
 
-     if (product instanceof Smartphone) {
-        Smartphone smartphone = (Smartphone) product;
-        if (smartphone.getManufacturer().contains(search)) {
-            return true;
+        if (product instanceof Smartphone) {
+            Smartphone smartphone = (Smartphone) product;
+            if (smartphone.getManufacturer().contains(search)) {
+                return true;
+            }
+            if (smartphone.getName().contains(search)) {
+                return true;
+            }
+            return false;
         }
-        if (smartphone.getName().contains(search)) {
-            return true;
-        }
+
+
         return false;
     }
-
-
-        return false;
-}
 
 
 }

@@ -8,7 +8,7 @@ public class Book extends Product {
         this.author = author;
     }
 
-    public Book(){
+    public Book() {
         super();
     }
 

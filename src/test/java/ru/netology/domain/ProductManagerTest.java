@@ -1,6 +1,7 @@
 package ru.netology.domain;
 
 import org.junit.jupiter.api.Test;
+import ru.netology.manager.ProductManager;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -16,51 +17,9 @@ class ProductManagerTest {
     private Smartphone philips = new Smartphone(3, "philips1", 3000, "philips");
     private Smartphone lg = new Smartphone(4, "lg1", 4000, "lg");
 
-    @Test
-    public void shouldAddAll() {
-        manager.add(one);
-        manager.add(second);
-        manager.add(third);
-        manager.add(fourth);
-        manager.add(nokia);
-        manager.add(samsung);
-        manager.add(philips);
-        manager.add(lg);
-        Product[] actual = manager.getAll();
-        Product[] expected = new Product[]{lg, philips, samsung, nokia, fourth, third, second, one};
-        assertArrayEquals(expected, actual);
-
-    }
 
     @Test
-    public void shouldAddOne() {
-        manager.add(samsung);
-        Product[] actual = manager.getAll();
-        Product[] expected = new Product[]{samsung};
-        assertArrayEquals(expected, actual);
-
-    }
-
-    @Test
-    public void shouldAddNothing() {
-        Product[] actual = manager.getAll();
-        Product[] expected = new Product[]{};
-        assertArrayEquals(expected, actual);
-
-    }
-
-    @Test
-    public void shouldAddAllHowMuch() {
-        manager.add(one);
-        manager.add(lg);
-        manager.add(third);
-        Product[] actual = manager.getAll();
-        Product[] expected = new Product[]{third, lg, one};
-        assertArrayEquals(expected, actual);
-    }
-
-    @Test
-    public void shouldSearchOneProductByName() {
+    public void shouldSearchOneProductByNameBook() {
         String textToSearch = "third";
         manager.add(third);
         manager.add(lg);
@@ -69,32 +28,72 @@ class ProductManagerTest {
         Product[] actual = manager.searchBy(textToSearch);
         assertArrayEquals(expected, actual);
 
-
     }
 
     @Test
-    public void shouldSaveOneProduct() {
-        String addSmartphone = "lg";
-        manager.add(lg);
-        Product[] expected = new Product[]{lg};
-        Product[] actual = manager.getAll();
-        assertArrayEquals(expected, actual);
-    }
-
-    @Test
-    public void shouldSaveAll() {
-        manager.add(one);
-        manager.add(second);
+    public void shouldSearchOneProductByNameSmartphone() {
+        String textToSearch = "nokia";
         manager.add(third);
-        manager.add(fourth);
-        manager.add(nokia);
-        manager.add(samsung);
-        manager.add(philips);
         manager.add(lg);
-        Product[] actual = manager.getAll();
-        Product[] expected = new Product[]{lg, philips, samsung, nokia, fourth, third, second, one};
+        manager.add(nokia);
+        manager.searchBy(textToSearch);
+        Product[] expected = new Product[]{nokia};
+        Product[] actual = manager.searchBy(textToSearch);
         assertArrayEquals(expected, actual);
 
+    }
+
+    @Test
+    public void shouldSearchOneProductByAuthorBook() {
+        String textToSearch = "Ivanov";
+        manager.add(second);
+        manager.add(lg);
+        manager.searchBy("Ivanov");
+        manager.searchBy("Olegov");
+        Product[] expected = new Product[]{second};
+        Product[] actual = manager.searchBy(textToSearch);
+        assertArrayEquals(expected, actual);
 
     }
+
+    @Test
+    public void shouldSearchOneProductByManufacturerSmartphone() {
+        String textToSearch = "philips";
+        manager.add(second);
+        manager.add(philips);
+        manager.searchBy("Ivanov");
+        manager.searchBy("philips");
+        Product[] expected = new Product[]{philips};
+        Product[] actual = manager.searchBy(textToSearch);
+        assertArrayEquals(expected, actual);
+
+    }
+
+    @Test
+    public void shouldSearchNothingNameBook() {
+        String textToSearch = "one";
+        manager.add(third);
+        manager.add(lg);
+        manager.add(nokia);
+        manager.searchBy(textToSearch);
+        Product[] expected = new Product[0];
+        Product[] actual = manager.searchBy(textToSearch);
+        assertArrayEquals(expected, actual);
+
+    }
+
+    @Test
+    public void shouldSearchNothingNameSmartphone() {
+        String textToSearch = "nokia";
+        manager.add(third);
+        manager.add(lg);
+        manager.add(philips);
+        manager.searchBy(textToSearch);
+        Product[] expected = new Product[0];
+        Product[] actual = manager.searchBy(textToSearch);
+        assertArrayEquals(expected, actual);
+
+    }
+
+
 }
