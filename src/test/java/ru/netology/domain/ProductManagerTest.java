@@ -16,6 +16,7 @@ class ProductManagerTest {
     private Smartphone samsung = new Smartphone(2, "samsung1", 2000, "samsung");
     private Smartphone philips = new Smartphone(3, "philips1", 3000, "philips");
     private Smartphone lg = new Smartphone(4, "lg1", 4000, "lg");
+    private Book fifth = new Book(5, "fifth1", 578, "Sergeev");
 
 
     @Test
@@ -23,7 +24,6 @@ class ProductManagerTest {
         String textToSearch = "third";
         manager.add(third);
         manager.add(lg);
-        manager.searchBy(textToSearch);
         Product[] expected = new Product[]{third};
         Product[] actual = manager.searchBy(textToSearch);
         assertArrayEquals(expected, actual);
@@ -36,7 +36,6 @@ class ProductManagerTest {
         manager.add(third);
         manager.add(lg);
         manager.add(nokia);
-        manager.searchBy(textToSearch);
         Product[] expected = new Product[]{nokia};
         Product[] actual = manager.searchBy(textToSearch);
         assertArrayEquals(expected, actual);
@@ -48,8 +47,6 @@ class ProductManagerTest {
         String textToSearch = "Ivanov";
         manager.add(second);
         manager.add(lg);
-        manager.searchBy("Ivanov");
-        manager.searchBy("Olegov");
         Product[] expected = new Product[]{second};
         Product[] actual = manager.searchBy(textToSearch);
         assertArrayEquals(expected, actual);
@@ -61,8 +58,6 @@ class ProductManagerTest {
         String textToSearch = "philips";
         manager.add(second);
         manager.add(philips);
-        manager.searchBy("Ivanov");
-        manager.searchBy("philips");
         Product[] expected = new Product[]{philips};
         Product[] actual = manager.searchBy(textToSearch);
         assertArrayEquals(expected, actual);
@@ -75,7 +70,6 @@ class ProductManagerTest {
         manager.add(third);
         manager.add(lg);
         manager.add(nokia);
-        manager.searchBy(textToSearch);
         Product[] expected = new Product[0];
         Product[] actual = manager.searchBy(textToSearch);
         assertArrayEquals(expected, actual);
@@ -88,9 +82,20 @@ class ProductManagerTest {
         manager.add(third);
         manager.add(lg);
         manager.add(philips);
-        manager.searchBy(textToSearch);
         Product[] expected = new Product[0];
         Product[] actual = manager.searchBy(textToSearch);
+        assertArrayEquals(expected, actual);
+
+    }
+
+    @Test
+    public void shouldSearchProductByAuthor() {
+        String author = "Sergeev";
+        manager.add(third);
+        manager.add(one);
+        manager.add(fifth);
+        Product[] expected = new Product[]{third, fifth};
+        Product[] actual = manager.searchBy(author);
         assertArrayEquals(expected, actual);
 
     }

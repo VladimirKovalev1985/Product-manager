@@ -7,7 +7,7 @@ import ru.netology.repository.Repository;
 
 public class ProductManager {
     private Repository repository = new Repository();
-    private Product[] products = new Product[0];
+    // private Product[] products = new Product[0];
 
     public ProductManager(Repository repository) {
         this.repository = repository;
@@ -26,7 +26,7 @@ public class ProductManager {
         for (Product product : repository.findAll()) {
             if (matches(product, text)) {
                 Product[] tmp = new Product[result.length + 1];
-                System.arraycopy(products, 0, tmp, 0, result.length);
+                System.arraycopy(result, 0, tmp, 0, result.length);
                 tmp[tmp.length - 1] = product;
                 result = tmp;
             }
